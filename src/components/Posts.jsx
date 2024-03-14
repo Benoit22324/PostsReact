@@ -10,13 +10,15 @@ const Posts = () => {
         <>
             <div>
                 {
-                    state.posts.map((item, i) => 
-                    <div style={{border: '1px solid white', borderRadius: '15px', textAlign: 'center', padding: '10px'}} key={i}>
-                        <PostTitle title={item.title}/>
-                        <PostDesc description={item.description}/>
-                        <PostDel id={item.id}/>
-                    </div>
-                    )
+                    state.posts.length !== 0 ? state.posts.map((item, i) => 
+                        <div style={{border: '1px solid white', borderRadius: '15px', textAlign: 'center', padding: '10px'}} key={i}>
+                            <PostTitle title={item.title}/>
+                            <PostDesc description={item.description}/>
+                            <PostDel id={item.id}/>
+                        </div>
+                        )
+                        :
+                        <p>Il n'y a pas de post pour l'instant</p>
                 }
             </div>
         </>
