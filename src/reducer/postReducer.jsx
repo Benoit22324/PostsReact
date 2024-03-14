@@ -2,6 +2,7 @@ export const init = {
     title: '',
     description: '',
     posts: [],
+    errorMessage: '',
 }
 
 const postReducer = (state, action) => {
@@ -9,11 +10,13 @@ const postReducer = (state, action) => {
     switch(action.type) {
         case 'updateTitle': return {
             ...state,
-            title: action.payload
+            title: action.payload,
+            errorMessage: '',
         }
         case 'updateDesc': return {
             ...state,
-            description: action.payload
+            description: action.payload,
+            errorMessage: '',
         }
 
         case 'addPost': return {
@@ -26,6 +29,11 @@ const postReducer = (state, action) => {
         case 'deletePost': return {
             ...state,
             posts: state.posts.filter((post) => post.id !== action.payload)
+        }
+
+        case 'setError': return {
+            ...state,
+            errorMessage: action.payload
         }
 
         default: return state

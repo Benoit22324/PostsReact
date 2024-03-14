@@ -13,15 +13,23 @@ const Input = () => {
     }
 
     const add = () => {
-        dispatch({type: 'addPost', payload: id})
-        setId((prev) => prev + 1)
+        if (state.title !== '' && state.description !== '') {
+            dispatch({type: 'addPost', payload: id})
+            setId((prev) => prev + 1)
+        }
+        else if (state.title === '' && state.description === '') dispatch({type: 'setError', payload: 'Veuillez saisir un titre et une description'})
+        else if (state.title === '' && state.description !== '') dispatch({type: 'setError', payload: 'Veuillez saisir un titre'})
+        else if (state.title !== '' && state.description === '') dispatch({type: 'setError', payload: 'Veuillez saisir une description'})
     }
 
     return (
         <>
             <div style={{display: 'flex', flexDirection: 'column'}}>
-                <label>Votre titre: <input type="text" name="title" value={state.title} onChange={updateTitle}/></label>
-                <label>Votre description: <textarea type="text" name="description" value={state.description} onChange={updateDesc}/></label>
+                {
+                    state.errorMessage !== '' && <p>{state.errorMessage}</p>
+                }
+                <label>Votre titre: <input type="text" name="title" value={state.title} onChange={updateTitle} placeholder='Veuillez saisir un titre' /></label>
+                <label>Votre description: <textarea type="text" name="description" value={state.description} onChange={updateDesc} placeholder='Veuillez saisir une description' /></label>
                 <button onClick={add}>Envoyer</button>
             </div>
         </>
